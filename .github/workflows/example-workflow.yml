@@ -1,0 +1,9 @@
+# it's not possible to (without hacking) create empty directories in git. This workflow is a placeholder
+name: GitHub Actions Demo
+on: 
+  workflow_dispatch:
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
