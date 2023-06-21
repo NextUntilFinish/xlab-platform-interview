@@ -47,6 +47,7 @@ You can also run a `kubectl get svc -n dev` to get the port number for all runni
 ## The challenge
 
 As your company grows you need to add support for more environments to your kubenetes cluster. For now, all environments will remain on the same cluster, but the Terraform code is becoming difficult to maintain. We would like you to:
+* Fork the repository
 * Improve the terraform to make it easy to add new environments
 * Ensure that each environment is able to run a different version of the container image
 * Add a new environment called `production`
