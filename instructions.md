@@ -66,3 +66,4 @@ You should do this in your own (public) repo and send us a link to it once compl
 * You should be able to complete this task using standard Terraform. Please refrain from using tools that extend terraform's functionality e.g. terragrunt
 * Please amend files in `./tf`, `./run.sh` & `./kind-config.yaml` only
 * Consider environment segregation and structure your code accordingly
+* For extra credit consider tests and how this might fit into CI, and provide examples
