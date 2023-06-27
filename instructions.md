@@ -56,7 +56,7 @@ As your company grows you need to add support for more environments to your kube
     * How this could work in a CI/CD pipeline
     * Any other considerations for production deployment
 
-You should do this in your own (public) repo and send us a link to it once complete.
+You should do this in your own (public) repo and send us a link to it once complete. If you'd prefer to use a private repository, make sure you grant access to `xlab-platform-interview`
 
 ## Guidance
 
