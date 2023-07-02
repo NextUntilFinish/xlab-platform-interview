@@ -168,3 +168,11 @@ resource "kubernetes_service" "stg_nginx" {
     type = "NodePort"
   }
 }
+
+module "production" {
+  source = "./modules/nginx-environment"   
+  environment_name = "production"
+  label = "ProductionNginx"
+  namespace = "dev"
+  node_port = 30203
+}
