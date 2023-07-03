@@ -169,10 +169,6 @@ resource "kubernetes_service" "stg_nginx" {
   }
 }
 
-module "production" {
-  source = "./modules/nginx-environment"   
-  environment_name = "production"
-  label = "ProductionNginx"
-  namespace = "dev"
-  node_port = 30203
+module nginx-deploymnents {
+  source = "./nginx-deployments.tf"
 }

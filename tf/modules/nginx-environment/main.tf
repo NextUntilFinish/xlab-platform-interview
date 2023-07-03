@@ -1,3 +1,9 @@
+resource "kubernetes_namespace" "namespace" {
+  metadata {
+    name = var.namespace
+  }
+}
+
 module kubernetes-deployment {
   source = "../kubernetes-deployment"
   environment_name = var.environment_name
