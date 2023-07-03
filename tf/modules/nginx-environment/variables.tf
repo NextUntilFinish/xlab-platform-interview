@@ -6,10 +6,26 @@ variable "node_port" {
     type = number
 }
 
-variable "namespace" {
+# TODO: Set some logical limits on this using a precondition
+variable "cpu_limit" {
     type = string
+    default = "0.5"
 }
 
-variable "label" {
+# TODO: Set some logical limits on this using a precondition
+variable "memory_limit" {
     type = string
+    default = "512Mi"
+}
+
+# TODO: Set some logical limits on this using a precondition
+variable "cpu_requests" {
+    type = string
+    default = "250m"
+}
+
+# TODO: Set some logical limits on this using a precondition
+variable "memory_requests" {
+    type = string
+    default = "50Mi"
 }
