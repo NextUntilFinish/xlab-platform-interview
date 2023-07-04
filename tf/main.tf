@@ -6,81 +6,47 @@ terraform {
   }
 }
 
-locals {
-  certs = [
-    base64decode(var.client_cert),
-    base64decode(var.client_key),
-    base64decode(var.cluster_cert),
-  ]
+variable "host" {
+  type = string
 }
 
-module "nginx" {
-  source = "hashicorp/kubernetes/modules/deployment"
 
-  name = "nginx"
+variable "client_cert" {
+  type = string
+}
+
+variable "client_key" {
+  type = string
+}
+
+variable "cluster_cert" {
+  type = string
+}
+
+provider "kubernetes" {
+  host = var.host
+
+  client_certificate     = base64decode(var.client_cert)
+  client_key             = base64decode(var.client_key)
+  cluster_ca_certificate = base64decode(var.cluster_cert)
+}
+
+resource "kubernetes_namespace" "dev_namespace" {
+  metadata {
+    name = "dev"
+  }
+}
+
+module nginx {
+  source = "./modules/nginx"
   namespace = "dev"
-  labels = {
-    App = "Nginx"
+  
+  for_each = {
+    dev = 30201
+    stg = 30202
+    prd = 30203
   }
-  replicas = 2
-  selector = {
-    match_labels = {
-      App = "Nginx"
-    }
-  }
-  template {
-    metadata {
-      labels = {
-        App = "Nginx"
-      }
-    }
-    spec {
-      container {
-        image = "nginx"
-        name = "nginx"
-
-        port {
-          container_port = 80
-        }
-
-        resources {
-          limits = {
-            cpu    = "0.5"
-            memory = "512Mi"
-          }
-          requests = {
-            cpu    = "250m"
-            memory = "50Mi"
-          }
-        }
-      }
-    }
-  }
-
-  service {
-    name = "nginx"
-    port {
-      node_port = 30201
-      port        = 80
-      target_port = 80
-    }
-
-    type = "NodePort"
-  }
-}
-
-resource "kubernetes_deployment" "dev_nginx" {
-  depends_on = [module.nginx]
-}
-
-resource "kubernetes_service" "dev_nginx" {
-  depends_on = [module.nginx]
-}
-
-resource "kubernetes_deployment" "stg_nginx" {
-  depends_on = [module.nginx]
-}
-
-resource "kubernetes_service" "stg_nginx" {
-  depends_on = [module.nginx]
+  
+  environment_name = each.key
+  node_port = each.value
 }
